@@ -54,35 +54,32 @@ public class LoginScreenController implements Initializable {
         String userNameInput = userNameField.getText();
         String passwordInput = passwordField.getText();
 
-        String errorMessage = "";
-
         //validation
         if (userNameInput.isEmpty() || passwordInput.isEmpty()) {
-            errorMessage = "User name and Password cannot be blank.";
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Login Error");
             alert.setHeaderText("Error");
-            alert.setContentText(errorMessage);
+            alert.setContentText("User name and Password cannot be blank.");
             alert.showAndWait();
         } else {
             User currentUser = exisitingUser(userNameInput, passwordInput);
             if (currentUser == null) {
-                errorMessage = "User name or Password are incorrect.";
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Login Error");
                 alert.setHeaderText("Error");
-                alert.setContentText(errorMessage);
+                alert.setContentText("User name or Password are incorrect.");
                 alert.showAndWait();
+            } else {
+                //go to main screen after successful login
+                Stage stage;
+                Parent root;
+                stage = (Stage) loginButton.getScene().getWindow();
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/View_Controller/MainScreen.fxml"));
+                root = loader.load();
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+                stage.show();
             }
-            //go to main screen after successful login
-            Stage stage;
-            Parent root;
-            stage = (Stage) loginButton.getScene().getWindow();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View_Controller/MainScreen.fxml"));
-            root =loader.load();
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
         }
     }
 
@@ -99,6 +96,7 @@ public class LoginScreenController implements Initializable {
                 user.setPassword(rs.getString("password"));
             } else {
                 System.out.println("Not found.");
+
                 return null;
             }
         } catch (SQLException e){
