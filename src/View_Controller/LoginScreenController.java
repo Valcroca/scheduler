@@ -1,24 +1,40 @@
 package View_Controller;
 
+import DAOImplementation.DBConnection;
+import Model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class LoginScreenController implements Initializable {
+
+    User user = new User();
+//    ResourceBundle rb = ResourceBundle.getBundle("login", Locale.getDefault());
+
+    @FXML
+    private Button loginButton;
 
     @FXML
     private PasswordField passwordField;
 
     @FXML
     private TextField userNameField;
+
+    public LoginScreenController() {};
 
     @FXML
     void exitButtonHandler(ActionEvent event) {
@@ -34,8 +50,61 @@ public class LoginScreenController implements Initializable {
     }
 
     @FXML
-    void loginButtonHandler(ActionEvent event) {
+    void loginButtonHandler(ActionEvent event) throws IOException {
+        String userNameInput = userNameField.getText();
+        String passwordInput = passwordField.getText();
 
+        String errorMessage = "";
+
+        //validation
+        if (userNameInput.isEmpty() || passwordInput.isEmpty()) {
+            errorMessage = "User name and Password cannot be blank.";
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Login Error");
+            alert.setHeaderText("Error");
+            alert.setContentText(errorMessage);
+            alert.showAndWait();
+        } else {
+            User currentUser = exisitingUser(userNameInput, passwordInput);
+            if (currentUser == null) {
+                errorMessage = "User name or Password are incorrect.";
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Login Error");
+                alert.setHeaderText("Error");
+                alert.setContentText(errorMessage);
+                alert.showAndWait();
+            }
+            //go to main screen after successful login
+            Stage stage;
+            Parent root;
+            stage = (Stage) loginButton.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/View_Controller/MainScreen.fxml"));
+            root =loader.load();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+    }
+
+    User exisitingUser(String userNameInput, String passwordInput) {
+        try{
+            PreparedStatement ps = DBConnection.startConnection().prepareStatement("SELECT * FROM user WHERE userName=? AND password=?");
+            ps.setString(1, userNameInput);
+            ps.setString(2, passwordInput);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                System.out.println(ps.getUpdateCount() + " user found.");
+                user.setUserId(rs.getInt("userId"));
+                user.setUserName(rs.getString("userName"));
+                user.setPassword(rs.getString("password"));
+            } else {
+                System.out.println("Not found.");
+                return null;
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+        return user;
     }
 
     @Override

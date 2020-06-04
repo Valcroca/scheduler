@@ -8,15 +8,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Locale;
 
 public class Main extends Application {
+
+    Locale locale = Locale.getDefault();
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -29,9 +29,29 @@ public class Main extends Application {
 
     public static void main(String[] args) throws SQLException {
 
-        Connection conn = DBConnection.startConnection();
-        DBQueries.setStatement(conn);
-        Statement statement = DBQueries.getStatement();
+//        Connection conn = DBConnection.startConnection();
+//        String insertStatement = "INSERT INTO country(country, createDate, createdBy, lastUpdateBy) VALUES(?, ?, ?, ?)";
+//        DBQueries.setPreparedStatement(conn, insertStatement);
+//        PreparedStatement ps = DBQueries.getPreparedStatement();
+//        String countryName = "Argentina";
+//        String createDate = "2020-02-22 00:00:00";
+//        String createdBy = "admin";
+//        String lastUpdateBy = "admin";
+//
+//        ps.setString(1, countryName);
+//        ps.setString(2, createDate);
+//        ps.setString(3, createdBy);
+//        ps.setString(4, lastUpdateBy);
+//
+//        ps.execute();
+//        if (ps.getUpdateCount() > 0)
+//            System.out.println(ps.getUpdateCount() + " row(s) affected");
+//        else
+//            System.out.println("no change");
+
+
+//        DBQueries.setStatement(conn);
+//        Statement statement = DBQueries.getStatement();
 
         //SQL insert statement
         //String insertStatement = "INSERT INTO country(country, createDate, createdBy, lastUpdateBy) VALUES('US', '2020-02-22 00:00:00', 'admin', 'admin')";
@@ -59,23 +79,28 @@ public class Main extends Application {
 //        else
 //            System.out.println("No change");
 
-        //select all records from country table
-        String selectStatement = "SELECT * FROM country";
-        //execute statement
-        statement.execute(selectStatement);
-        //result set
-        ResultSet resultSet = statement.getResultSet();
-        //forward scroll resultSet
-        while(resultSet.next()) {
-            int countryId = resultSet.getInt("countryId");
-            String countryName = resultSet.getString("country");
-            LocalDate date = resultSet.getDate("createDate").toLocalDate();
-            LocalTime time = resultSet.getTime("createDate").toLocalTime();
-            String createdBy = resultSet.getString("createdBy");
-            LocalDateTime lastUpdate = resultSet.getTimestamp("lastUpdate").toLocalDateTime();
-            //printing record
-            System.out.println(countryId + " | " + countryName + " | " + date  + " " + time + " | " + createdBy  + " | " + lastUpdate);
-        }
+//        try {
+//            //select all records from country table
+//         String selectStatement = "SELECT * FROM country";
+//          //execute statement
+//          statement.execute(selectStatement);
+//           //result set
+//           ResultSet resultSet = statement.getResultSet();
+////        //forward scroll resultSet
+////            while (resultSet.next()) {
+////                int countryId = resultSet.getInt("countryId");
+////                String countryName = resultSet.getString("country");
+////                LocalDate date = resultSet.getDate("createDate").toLocalDate();
+////                LocalTime time = resultSet.getTime("createDate").toLocalTime();
+////                String createdBy = resultSet.getString("createdBy");
+////                LocalDateTime lastUpdate = resultSet.getTimestamp("lastUpdate").toLocalDateTime();
+////                //printing record
+////                System.out.println(countryId + " | " + countryName + " | " + date + " " + time + " | " + createdBy + " | " + lastUpdate);
+//
+//            }
+//        } catch (Exception e) {
+//            System.out.println(e.getMessage());
+//        }
         launch(args);
         DBConnection.closeConnection();
     }
