@@ -23,10 +23,22 @@ import java.util.ResourceBundle;
 public class LoginScreenController implements Initializable {
 
     User user = new User();
-//    ResourceBundle rb = ResourceBundle.getBundle("login", Locale.getDefault());
+    private String errorText, errorText1, errorHeader, exitMessage, exitHeader;
+
+    @FXML
+    private Label userNameLabel;
+
+    @FXML
+    private Label passwordLabel;
+
+    @FXML
+    private Label loginLabel;
 
     @FXML
     private Button loginButton;
+
+    @FXML
+    private Button exitButton;
 
     @FXML
     private PasswordField passwordField;
@@ -40,8 +52,8 @@ public class LoginScreenController implements Initializable {
     void exitButtonHandler(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation Dialog");
-        alert.setHeaderText("Exit Appointment Scheduling App");
-        alert.setContentText("Are you sure you want to exit this program?");
+        alert.setHeaderText(exitHeader);
+        alert.setContentText(exitMessage);
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
@@ -57,17 +69,17 @@ public class LoginScreenController implements Initializable {
         //validation
         if (userNameInput.isEmpty() || passwordInput.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Login Error");
+            alert.setTitle(errorHeader);
             alert.setHeaderText("Error");
-            alert.setContentText("User name and Password cannot be blank.");
+            alert.setContentText(errorText1);
             alert.showAndWait();
         } else {
             User currentUser = exisitingUser(userNameInput, passwordInput);
             if (currentUser == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Login Error");
+                alert.setTitle(errorHeader);
                 alert.setHeaderText("Error");
-                alert.setContentText("User name or Password are incorrect.");
+                alert.setContentText(errorText);
                 alert.showAndWait();
             } else {
                 //go to main screen after successful login
@@ -107,7 +119,18 @@ public class LoginScreenController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        Locale locale = Locale.getDefault();
+        ResourceBundle rb = ResourceBundle.getBundle("Languages/lang", locale);
+        errorText = rb.getString("errorText");
+        errorText1 =  rb.getString("errorText1");
+        errorHeader = rb.getString("errorHeader");
+        exitMessage = rb.getString("exitMessage");
+        exitHeader = rb.getString("exitHeader");
+        userNameLabel.setText(rb.getString("user"));
+        passwordLabel.setText(rb.getString("password"));
+        exitButton.setText(rb.getString("exit"));
+        loginLabel.setText(rb.getString("login"));
+        loginButton.setText(rb.getString("login"));
     }
 }
 

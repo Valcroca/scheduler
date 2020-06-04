@@ -13,10 +13,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class Main extends Application {
-
-    Locale locale = Locale.getDefault();
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -28,6 +27,8 @@ public class Main extends Application {
 
 
     public static void main(String[] args) throws SQLException {
+
+
 
 //        Connection conn = DBConnection.startConnection();
 //        String insertStatement = "INSERT INTO country(country, createDate, createdBy, lastUpdateBy) VALUES(?, ?, ?, ?)";
