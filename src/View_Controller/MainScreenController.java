@@ -1,15 +1,21 @@
 package View_Controller;
 
+import DAOImplementation.DBConnection;
+import Model.Appointment;
+import Model.Customer;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MainScreenController implements Initializable {
@@ -27,22 +33,22 @@ public class MainScreenController implements Initializable {
     private RadioButton radioBtnViewAll;
 
     @FXML
-    private TableView<?> appointmentsTable;
+    private TableView<Appointment> appointmentsTable;
 
     @FXML
-    private TableColumn<?, ?> appointmentIdColumn;
+    private TableColumn<Appointment, ?> appointmentIdColumn;
 
     @FXML
-    private TableColumn<?, ?> appointmentTitleColumn;
+    private TableColumn<Appointment, ?> appointmentTitleColumn;
 
     @FXML
-    private TableColumn<?, ?> appointmentTypeColumn;
+    private TableColumn<Appointment, ?> appointmentTypeColumn;
 
     @FXML
-    private TableColumn<?, ?> appointmentStartColumn;
+    private TableColumn<Appointment, ?> appointmentStartColumn;
 
     @FXML
-    private TableColumn<?, ?> appointmentEndColumn;
+    private TableColumn<Appointment, ?> appointmentEndColumn;
 
     @FXML
     private Button newAppointmenttBtn;
@@ -54,16 +60,26 @@ public class MainScreenController implements Initializable {
     private Button deleteAppointmentBtn;
 
     @FXML
-    private TableView<?> customersTable;
+    private TableView<Customer> customersTable;
 
     @FXML
-    private TableColumn<?, ?> customerIdColumn;
+    private TableColumn<Customer, Integer> customerIdColumn;
 
     @FXML
-    private TableColumn<?, ?> customerNameColumn;
+    private TableColumn<Customer, String> customerNameColumn;
 
     @FXML
-    private TableColumn<?, ?> customerAddressColumn;
+    private TableColumn<Customer, String> customerAddressColumn;
+
+    @FXML
+    private TableColumn<Customer, String> customerCountryColumn;
+
+    @FXML
+    private TableColumn<Customer, String> customerCityColumn;
+
+    @FXML
+    private TableColumn<Customer, Integer> customerPhoneColumn;
+
 
     @FXML
     private Button newCustomerBtn;
@@ -74,13 +90,89 @@ public class MainScreenController implements Initializable {
     @FXML
     private Button updateCustomerBtn;
 
+    private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        populateCustomersTable();
+        populateAppointmentsTable();
+    }
+
+    //populates the customers table with DB data
+    public void populateCustomersTable() {
+        customersTable.getItems().setAll(getAllCustomers());
+        customerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        customerNameColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        customerAddressColumn.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
+        customerCityColumn.setCellValueFactory(new PropertyValueFactory<>("customerCity"));
+        customerCountryColumn.setCellValueFactory(new PropertyValueFactory<>("customerCountry"));
+        customerPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
+    }
+
+    //GET all customers from DB
+    public static ObservableList<Customer> getAllCustomers() {
+        System.out.println("Finding all Customers");
+        allCustomers.clear();
+
+        try (PreparedStatement statement = DBConnection.startConnection().prepareStatement(
+                "SELECT customer.customerId, customer.customerName, address.address, address.postalCode, city.cityId, city.city, country.country, address.phone "
+                        + "FROM customer, address, city, country "
+                        + "WHERE customer.addressId = address.addressId AND address.cityId = city.cityId AND city.countryId = country.countryId;");
+             ResultSet rs = statement.executeQuery();){
+                while (rs.next()) {
+                    int id = rs.getInt("customer.customerId");
+                    String name = rs.getString("customer.customerName");
+                    String address = rs.getString("address.address");
+                    String city = rs.getString("city.city");
+                    String country = rs.getString("country.country");
+                    int phone = rs.getInt("address.phone");
+                    allCustomers.add(new Customer(id, name, address, city, country, phone));
+                }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return allCustomers;
+    }
+
+    public void populateAppointmentsTable() {
+
+    }
+
     @FXML
     void deleteAppointmentHandler(ActionEvent event) {
 
     }
 
+    //DELETE customer record
     @FXML
     void deleteCustomerHandler(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Delete Customer");
+        alert.setContentText("Are you sure you want to delete this customer?");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            Customer customerToDelete = customersTable.getSelectionModel().getSelectedItem();
+
+            try {
+                PreparedStatement ps = DBConnection.startConnection().prepareStatement("DELETE customer.*, address.* FROM customer, address " +
+                        "WHERE customer.customerId = ? AND customer.addressId = address.addressId");
+                ps.setInt(1, customerToDelete.getCustomerId());
+                ps.execute();
+                allCustomers.remove(customerToDelete);
+                populateCustomersTable();
+                customersTable.refresh();
+
+                //confirm rows affected
+                if (ps.getUpdateCount() > 0)
+                    System.out.println(ps.getUpdateCount() + " row(s) affected");
+                else
+                    System.out.println("No change");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 
@@ -119,8 +211,5 @@ public class MainScreenController implements Initializable {
 
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
 
-    }
 }
