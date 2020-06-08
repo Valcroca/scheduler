@@ -10,13 +10,13 @@ import java.sql.SQLException;
 
 public class Customer {
 
-    private String customerName, customerAddress, customerCity, customerCountry;
-    private int customerId, customerPhone;
+    private String customerName, customerAddress, customerCity, customerCountry, customerPhone;
+    private int customerId;
 
 
     public Customer() {}
 
-    public Customer(int customerId, String customerName, String customerAddress, String customerCity, String customerCountry, int customerPhone) {
+    public Customer(int customerId, String customerName, String customerAddress, String customerCity, String customerCountry, String customerPhone) {
         this.customerId = customerId;
         this.customerName = customerName;
         this.customerAddress = customerAddress;
@@ -65,11 +65,11 @@ public class Customer {
         this.customerId = customerId;
     }
 
-    public int getCustomerPhone() {
+    public String getCustomerPhone() {
         return customerPhone;
     }
 
-    public void setCustomerPhone(int customerPhone) {
+    public void setCustomerPhone(String customerPhone) {
         this.customerPhone = customerPhone;
     }
 

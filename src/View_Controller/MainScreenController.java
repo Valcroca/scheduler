@@ -7,10 +7,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -78,7 +84,7 @@ public class MainScreenController implements Initializable {
     private TableColumn<Customer, String> customerCityColumn;
 
     @FXML
-    private TableColumn<Customer, Integer> customerPhoneColumn;
+    private TableColumn<Customer, String> customerPhoneColumn;
 
 
     @FXML
@@ -98,7 +104,7 @@ public class MainScreenController implements Initializable {
         populateAppointmentsTable();
     }
 
-    //populates the customers table with DB data
+    //populate the customers table with DB data
     public void populateCustomersTable() {
         customersTable.getItems().setAll(getAllCustomers());
         customerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
@@ -125,7 +131,7 @@ public class MainScreenController implements Initializable {
                     String address = rs.getString("address.address");
                     String city = rs.getString("city.city");
                     String country = rs.getString("country.country");
-                    int phone = rs.getInt("address.phone");
+                    String phone = rs.getString("address.phone");
                     allCustomers.add(new Customer(id, name, address, city, country, phone));
                 }
         } catch (SQLException e) {
@@ -160,6 +166,7 @@ public class MainScreenController implements Initializable {
                         "WHERE customer.customerId = ? AND customer.addressId = address.addressId");
                 ps.setInt(1, customerToDelete.getCustomerId());
                 ps.execute();
+                //update customer table
                 allCustomers.remove(customerToDelete);
                 populateCustomersTable();
                 customersTable.refresh();
@@ -182,8 +189,15 @@ public class MainScreenController implements Initializable {
     }
 
     @FXML
-    void newCustomerHandler(ActionEvent event) {
-
+    void newCustomerHandler(ActionEvent event) throws IOException {
+        Stage stage;
+        Parent root;
+        stage = (Stage) newCustomerBtn.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View_Controller/AddCustomerScreen.fxml"));
+        root = loader.load();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
