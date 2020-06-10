@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="840.0" prefWidth="695.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.MainScreenController">
+<AnchorPane prefHeight="609.0" prefWidth="695.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.MainScreenController">
    <children>
       <Label layoutX="14.0" layoutY="14.0" text="Val Roca's Appointment Scheduling App">
          <font>
@@ -30,7 +30,7 @@
       </RadioButton>
       <RadioButton fx:id="radioBtnViewMonth" layoutX="495.0" layoutY="70.0" mnemonicParsing="false" onAction="#viewMonthHandler" text="View Month" toggleGroup="$viewBy" />
       <RadioButton fx:id="radioBtnViewAll" layoutX="309.0" layoutY="70.0" mnemonicParsing="false" onAction="#viewAllHandler" selected="true" text="View All" toggleGroup="$viewBy" />
-      <TableView fx:id="appointmentsTable" layoutX="10.0" layoutY="104.0" prefHeight="281.0" prefWidth="675.0">
+      <TableView fx:id="appointmentsTable" layoutX="10.0" layoutY="104.0" prefHeight="159.0" prefWidth="675.0">
         <columns>
           <TableColumn fx:id="appointmentIdColumn" prefWidth="43.0" text="Id" />
           <TableColumn fx:id="appointmentTitleColumn" prefWidth="138.0" text="Title" />
@@ -40,16 +40,16 @@
         </columns>
       </TableView>
       <Button layoutX="620.0" layoutY="12.0" mnemonicParsing="false" text="Logout" />
-      <Button fx:id="newAppointmenttBtn" layoutX="10.0" layoutY="397.0" mnemonicParsing="false" onAction="#newAppointmentHandler" text="New Appointment" />
-      <Button fx:id="updateAppointmentBtn" layoutX="157.0" layoutY="397.0" mnemonicParsing="false" onAction="#updateAppointmentHandler" text="Update" />
-      <Button fx:id="deleteAppointmentBtn" layoutX="236.0" layoutY="397.0" mnemonicParsing="false" onAction="#deleteAppointmentHandler" text="Delete" />
-      <Separator layoutX="-2.0" layoutY="434.0" prefHeight="6.0" prefWidth="695.0" />
-      <Label layoutX="104.0" layoutY="449.0" text="Customers:">
+      <Button fx:id="newAppointmenttBtn" layoutX="10.0" layoutY="272.0" mnemonicParsing="false" onAction="#newAppointmentHandler" text="New Appointment" />
+      <Button fx:id="updateAppointmentBtn" layoutX="157.0" layoutY="272.0" mnemonicParsing="false" onAction="#updateAppointmentHandler" text="Update" />
+      <Button fx:id="deleteAppointmentBtn" layoutX="236.0" layoutY="272.0" mnemonicParsing="false" onAction="#deleteAppointmentHandler" text="Delete" />
+      <Separator layoutY="312.0" prefHeight="6.0" prefWidth="695.0" />
+      <Label layoutX="123.0" layoutY="333.0" text="Customers:">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <TableView fx:id="customersTable" layoutX="10.0" layoutY="489.0" prefHeight="281.0" prefWidth="675.0">
+      <TableView fx:id="customersTable" layoutX="8.0" layoutY="374.0" prefHeight="159.0" prefWidth="675.0">
          <columns>
             <TableColumn fx:id="customerIdColumn" prefWidth="43.0" text="Id" />
             <TableColumn fx:id="customerNameColumn" prefWidth="149.0" text="Name" />
@@ -59,8 +59,8 @@
             <TableColumn fx:id="customerPhoneColumn" prefWidth="117.0" text="Phone" />
          </columns>
       </TableView>
-      <Button fx:id="newCustomerBtn" layoutX="10.0" layoutY="782.0" mnemonicParsing="false" onAction="#newCustomerHandler" text="New Customer" />
-      <Button fx:id="deleteCustomerBtn" layoutX="220.0" layoutY="782.0" mnemonicParsing="false" onAction="#deleteCustomerHandler" text="Delete" />
-      <Button fx:id="updateCustomerBtn" layoutX="138.0" layoutY="782.0" mnemonicParsing="false" onAction="#updateCustomerHandler" text="Update" />
+      <Button fx:id="newCustomerBtn" layoutX="8.0" layoutY="544.0" mnemonicParsing="false" onAction="#newCustomerHandler" text="New Customer" />
+      <Button fx:id="deleteCustomerBtn" layoutX="220.0" layoutY="544.0" mnemonicParsing="false" onAction="#deleteCustomerHandler" text="Delete" />
+      <Button fx:id="updateCustomerBtn" layoutX="138.0" layoutY="544.0" mnemonicParsing="false" onAction="#updateCustomerHandler" text="Update" />
    </children>
 </AnchorPane>
