@@ -26,6 +26,11 @@ public class Customer {
         this.customerPhone = customerPhone;
     }
 
+    public Customer(int customerId, String customerName) {
+        this.customerId = customerId;
+        this.customerName = customerName;
+    }
+
     public String getCustomerName() {
         return customerName;
     }
@@ -80,6 +85,11 @@ public class Customer {
 
     public void setCustomerPhone(String customerPhone) {
         this.customerPhone = customerPhone;
+    }
+
+    @Override
+    public String toString() {
+        return (customerName);
     }
 
 

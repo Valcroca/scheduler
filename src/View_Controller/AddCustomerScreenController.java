@@ -162,8 +162,8 @@ public class AddCustomerScreenController implements Initializable {
         String address = addressField.getText();
         City city = cityComboBox.getValue();
         String phone = phoneField.getText();
-
         String errorMessage = "";
+
         //field validations
         if (name == null || name.isEmpty())
             errorMessage += "The name cannot be blank.\n";

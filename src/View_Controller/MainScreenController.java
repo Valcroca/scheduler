@@ -173,9 +173,37 @@ public class MainScreenController implements Initializable {
         return allCustomers;
     }
 
+    //DELETE appointment record
     @FXML
     void deleteAppointmentHandler(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Confirmation Dialog");
+        alert.setHeaderText("Delete Appointment");
+        alert.setContentText("Are you sure you want to delete this appointment?");
 
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            Appointment appointmentToDelete = appointmentsTable.getSelectionModel().getSelectedItem();
+
+            try {
+                PreparedStatement ps = DBConnection.startConnection().prepareStatement("DELETE appointment.* FROM appointment " +
+                        "WHERE appointment.appointmentId = ?;");
+                ps.setInt(1, appointmentToDelete.getAppointmentId());
+                ps.execute();
+                //update appointment table
+                allAppointments.remove(appointmentToDelete);
+                populateAppointmentsTable();
+                appointmentsTable.refresh();
+
+                //confirm rows affected
+                if (ps.getUpdateCount() > 0)
+                    System.out.println(ps.getUpdateCount() + " row(s) affected");
+                else
+                    System.out.println("No change");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     //DELETE customer record
@@ -213,8 +241,15 @@ public class MainScreenController implements Initializable {
     }
 
     @FXML
-    void newAppointmentHandler(ActionEvent event) {
-
+    void newAppointmentHandler(ActionEvent event) throws IOException {
+        Stage stage;
+        Parent root;
+        stage = (Stage) newAppointmenttBtn.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View_Controller/AddAppointmentScreen.fxml"));
+        root = loader.load();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
