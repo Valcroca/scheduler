@@ -1,7 +1,6 @@
 package View_Controller;
 
 import DAOImplementation.DBConnection;
-import Model.Address;
 import Model.City;
 import Model.Customer;
 import javafx.collections.FXCollections;
@@ -23,7 +22,6 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;

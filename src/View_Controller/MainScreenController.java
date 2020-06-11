@@ -97,11 +97,43 @@ public class MainScreenController implements Initializable {
     private Button updateCustomerBtn;
 
     private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
+    private static ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        populateCustomersTable();
         populateAppointmentsTable();
+        populateCustomersTable();
+    }
+
+    //populate the appointments table with DB data
+    public void populateAppointmentsTable() {
+        appointmentsTable.getItems().setAll(getAllAppointments());
+        appointmentIdColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+        appointmentTitleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
+        appointmentTypeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        appointmentStartColumn.setCellValueFactory(new PropertyValueFactory<>("start"));
+        appointmentEndColumn.setCellValueFactory(new PropertyValueFactory<>("end"));
+    }
+
+    //GET all appointments from the DB
+    public static ObservableList<Appointment> getAllAppointments() {
+        System.out.println("Finding all Appointments");
+        allAppointments.clear();
+
+        try (PreparedStatement statement = DBConnection.startConnection().prepareStatement("SELECT appointment.appointmentId, appointment.title, appointment.type, appointment.start, appointment.end FROM appointment;");
+             ResultSet rs = statement.executeQuery()) {
+            while (rs.next()) {
+                int id = rs.getInt("appointment.appointmentId");
+                String title = rs.getString("appointment.title");
+                String type = rs.getString("appointment.type");
+                String start = rs.getString("appointment.start");
+                String end = rs.getString("appointment.end");
+                allAppointments.add(new Appointment(id, title, type, start, end));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return allAppointments;
     }
 
     //populate the customers table with DB data
@@ -115,7 +147,7 @@ public class MainScreenController implements Initializable {
         customerPhoneColumn.setCellValueFactory(new PropertyValueFactory<>("customerPhone"));
     }
 
-    //GET all customers from DB
+    //GET all customers from the DB
     public static ObservableList<Customer> getAllCustomers() {
         System.out.println("Finding all Customers");
         allCustomers.clear();
@@ -124,7 +156,7 @@ public class MainScreenController implements Initializable {
                 "SELECT customer.customerId, customer.customerName, customer.addressId, address.address, address.postalCode, city.cityId, city.city, country.country, address.phone "
                         + "FROM customer, address, city, country "
                         + "WHERE customer.addressId = address.addressId AND address.cityId = city.cityId AND city.countryId = country.countryId;");
-             ResultSet rs = statement.executeQuery();){
+             ResultSet rs = statement.executeQuery()){
                 while (rs.next()) {
                     int id = rs.getInt("customer.customerId");
                     String name = rs.getString("customer.customerName");
@@ -139,10 +171,6 @@ public class MainScreenController implements Initializable {
             e.printStackTrace();
         }
         return allCustomers;
-    }
-
-    public void populateAppointmentsTable() {
-
     }
 
     @FXML
