@@ -121,7 +121,7 @@ public class MainScreenController implements Initializable {
         allCustomers.clear();
 
         try (PreparedStatement statement = DBConnection.startConnection().prepareStatement(
-                "SELECT customer.customerId, customer.customerName, address.address, address.postalCode, city.cityId, city.city, country.country, address.phone "
+                "SELECT customer.customerId, customer.customerName, customer.addressId, address.address, address.postalCode, city.cityId, city.city, country.country, address.phone "
                         + "FROM customer, address, city, country "
                         + "WHERE customer.addressId = address.addressId AND address.cityId = city.cityId AND city.countryId = country.countryId;");
              ResultSet rs = statement.executeQuery();){
@@ -129,10 +129,11 @@ public class MainScreenController implements Initializable {
                     int id = rs.getInt("customer.customerId");
                     String name = rs.getString("customer.customerName");
                     String address = rs.getString("address.address");
+                    int addressId = rs.getInt("customer.addressId");
                     String city = rs.getString("city.city");
                     String country = rs.getString("country.country");
                     String phone = rs.getString("address.phone");
-                    allCustomers.add(new Customer(id, name, address, city, country, phone));
+                    allCustomers.add(new Customer(id, name, addressId, address, city, country, phone));
                 }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -206,8 +207,19 @@ public class MainScreenController implements Initializable {
     }
 
     @FXML
-    void updateCustomerHandler(ActionEvent event) {
+    void updateCustomerHandler(ActionEvent event) throws IOException {
+        Customer selectedCustomer = customersTable.getSelectionModel().getSelectedItem();
 
+        Stage stage;
+        Parent root;
+        stage = (Stage) updateCustomerBtn.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View_Controller/UpdateCustomerScreen.fxml"));
+        root = loader.load();
+        UpdateCustomerScreenController controller = loader.getController();
+        controller.populateCustomerFields(selectedCustomer);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML

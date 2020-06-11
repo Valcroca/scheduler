@@ -66,7 +66,7 @@ public class AddCustomerScreenController implements Initializable {
     }
 
     @FXML void saveNewCustomerHandler(ActionEvent event) throws IOException {
-//        Customer newCustomer = new Customer(0,"","","","","");
+
         if (validatesCustomer()) {
             //CREATE new customer
             try {
@@ -90,7 +90,7 @@ public class AddCustomerScreenController implements Initializable {
                     throw new SQLException("Address creation failed.");
                 }
                 //retrieve new address Id
-                int newAddressId = 0;
+                int newAddressId;
                 try (ResultSet rs = ps.getGeneratedKeys()) {
                     if (rs.next()) {
                         newAddressId = rs.getInt(1);

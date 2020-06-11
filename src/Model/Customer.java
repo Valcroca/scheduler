@@ -11,14 +11,15 @@ import java.sql.SQLException;
 public class Customer {
 
     private String customerName, customerAddress, customerCity, customerCountry, customerPhone;
-    private int customerId;
+    private int customerId, addressId;
 
 
     public Customer() {}
 
-    public Customer(int customerId, String customerName, String customerAddress, String customerCity, String customerCountry, String customerPhone) {
+    public Customer(int customerId, String customerName, int addressId, String customerAddress, String customerCity, String customerCountry, String customerPhone) {
         this.customerId = customerId;
         this.customerName = customerName;
+        this.addressId = addressId;
         this.customerAddress = customerAddress;
         this.customerCity = customerCity;
         this.customerCountry = customerCountry;
@@ -39,6 +40,14 @@ public class Customer {
 
     public void setCustomerAddress(String customerAddress) {
         this.customerAddress = customerAddress;
+    }
+
+    public int getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(int addressId) {
+        this.addressId = addressId;
     }
 
     public String getCustomerCity() {
