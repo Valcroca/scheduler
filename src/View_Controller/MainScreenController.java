@@ -9,7 +9,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -21,6 +20,8 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -42,22 +43,25 @@ public class MainScreenController implements Initializable {
     private TableView<Appointment> appointmentsTable;
 
     @FXML
-    private TableColumn<Appointment, ?> appointmentIdColumn;
+    private TableColumn<Appointment, Integer> appointmentIdColumn;
 
     @FXML
-    private TableColumn<Appointment, ?> appointmentTitleColumn;
+    private TableColumn<Appointment, String> appointmentTitleColumn;
 
     @FXML
-    private TableColumn<Appointment, ?> appointmentTypeColumn;
+    private TableColumn<Appointment, String> appointmentTypeColumn;
 
     @FXML
-    private TableColumn<Appointment, ?> appointmentStartColumn;
+    private TableColumn<Appointment, String> appointmentStartColumn;
 
     @FXML
-    private TableColumn<Appointment, ?> appointmentEndColumn;
+    private TableColumn<Appointment, String> appointmentEndColumn;
 
     @FXML
-    private Button newAppointmenttBtn;
+    private TableColumn<Appointment, Integer> appointmentCustomer;
+
+    @FXML
+    private Button newAppointmentBtn;
 
     @FXML
     private Button updateAppointmentBtn;
@@ -101,39 +105,91 @@ public class MainScreenController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+//        radioBtnViewAll.setSelected(true);
         populateAppointmentsTable();
         populateCustomersTable();
     }
 
     //populate the appointments table with DB data
     public void populateAppointmentsTable() {
-        appointmentsTable.getItems().setAll(getAllAppointments());
+        appointmentsTable.getItems().setAll(getAppointments());
         appointmentIdColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
         appointmentTitleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
         appointmentTypeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
         appointmentStartColumn.setCellValueFactory(new PropertyValueFactory<>("start"));
         appointmentEndColumn.setCellValueFactory(new PropertyValueFactory<>("end"));
+        appointmentCustomer.setCellValueFactory(new PropertyValueFactory<>("customerId"));
     }
 
-    //GET all appointments from the DB
-    public static ObservableList<Appointment> getAllAppointments() {
-        System.out.println("Finding all Appointments");
-        allAppointments.clear();
+    //GET appointments from the DB depending on all/weekly/monthly selection
+    public ObservableList<Appointment> getAppointments() {
 
-        try (PreparedStatement statement = DBConnection.startConnection().prepareStatement("SELECT appointment.appointmentId, appointment.title, appointment.type, appointment.start, appointment.end FROM appointment;");
-             ResultSet rs = statement.executeQuery()) {
-            while (rs.next()) {
-                int id = rs.getInt("appointment.appointmentId");
-                String title = rs.getString("appointment.title");
-                String type = rs.getString("appointment.type");
-                String start = rs.getString("appointment.start");
-                String end = rs.getString("appointment.end");
-                allAppointments.add(new Appointment(id, title, type, start, end));
+        if (radioBtnViewAll.isSelected()) {
+            System.out.println("Finding Appointments");
+            allAppointments.clear();
+
+            try (PreparedStatement statement = DBConnection.startConnection().prepareStatement("SELECT appointment.appointmentId, appointment.customerId, appointment.title, appointment.type, appointment.start, appointment.end FROM appointment;");
+                 ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("appointment.appointmentId");
+                    int customerId = rs.getInt("appointment.customerId");
+                    String title = rs.getString("appointment.title");
+                    String type = rs.getString("appointment.type");
+                    String start = rs.getString("appointment.start");
+                    String end = rs.getString("appointment.end");
+                    allAppointments.add(new Appointment(id, customerId, title, type, start, end));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return allAppointments;
+
+        }else if (radioBtnViewMonth.isSelected()) {
+            System.out.println("Finding Appointments by month.");
+            allAppointments.clear();
+
+            String startMonth = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            String endMonth = LocalDateTime.now().plusMonths(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            try (PreparedStatement statement = DBConnection.startConnection().prepareStatement("SELECT appointment.appointmentId, appointment.customerId, appointment.title, appointment.type, appointment.start, appointment.end FROM appointment WHERE appointment.start >= '" + startMonth + "' AND appointment.end <= '" + endMonth + "';");
+                 ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("appointment.appointmentId");
+                    int customerId = rs.getInt("appointment.customerId");
+                    String title = rs.getString("appointment.title");
+                    String type = rs.getString("appointment.type");
+                    String start = rs.getString("appointment.start");
+                    String end = rs.getString("appointment.end");
+                    allAppointments.add(new Appointment(id, customerId, title, type, start, end));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return allAppointments;
+
+        } else if (radioBtnViewWeek.isSelected()) {
+            System.out.println("Finding Appointments by week.");
+            allAppointments.clear();
+
+            String startWeek = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            String endWeek = LocalDateTime.now().plusWeeks(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            try (PreparedStatement statement = DBConnection.startConnection().prepareStatement("SELECT appointment.appointmentId, appointment.customerId, appointment.title, appointment.type, appointment.start, appointment.end FROM appointment WHERE appointment.start >= '" + startWeek + "' AND appointment.end <= '" + endWeek + "';");
+                 ResultSet rs = statement.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("appointment.appointmentId");
+                    int customerId = rs.getInt("appointment.customerId");
+                    String title = rs.getString("appointment.title");
+                    String type = rs.getString("appointment.type");
+                    String start = rs.getString("appointment.start");
+                    String end = rs.getString("appointment.end");
+                    allAppointments.add(new Appointment(id, customerId, title, type, start, end));
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            return allAppointments;
+        } else {
+            return allAppointments;
         }
-        return allAppointments;
     }
 
     //populate the customers table with DB data
@@ -244,7 +300,7 @@ public class MainScreenController implements Initializable {
     void newAppointmentHandler(ActionEvent event) throws IOException {
         Stage stage;
         Parent root;
-        stage = (Stage) newAppointmenttBtn.getScene().getWindow();
+        stage = (Stage) newAppointmentBtn.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/View_Controller/AddAppointmentScreen.fxml"));
         root = loader.load();
         Scene scene = new Scene(root);
@@ -265,8 +321,19 @@ public class MainScreenController implements Initializable {
     }
 
     @FXML
-    void updateAppointmentHandler(ActionEvent event) {
+    void updateAppointmentHandler(ActionEvent event) throws IOException {
+        Appointment selectedAppointment = appointmentsTable.getSelectionModel().getSelectedItem();
 
+        Stage stage;
+        Parent root;
+        stage = (Stage) updateAppointmentBtn.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View_Controller/UpdateAppointmentScreen.fxml"));
+        root = loader.load();
+        UpdateAppointmentScreenController controller = loader.getController();
+        controller.populateAppointmentFields(selectedAppointment);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -287,17 +354,17 @@ public class MainScreenController implements Initializable {
 
     @FXML
     void viewAllHandler(ActionEvent event) {
-
+        populateAppointmentsTable();
     }
 
     @FXML
     void viewMonthHandler(ActionEvent event) {
-
+        populateAppointmentsTable();
     }
 
     @FXML
     void viewWeekHandler(ActionEvent event) {
-
+        populateAppointmentsTable();
     }
 
 

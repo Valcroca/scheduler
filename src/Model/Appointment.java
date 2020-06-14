@@ -1,14 +1,14 @@
 package Model;
 
 public class Appointment {
-    private int appointmentId, cusotmerId, userId;
+    private int appointmentId, customerId, userId;
     private String title, description, location, contact, type, url, start, end;
 
     public Appointment() {}
 
     public Appointment(int appointmentId, int customerId, int userId, String title, String description, String location, String contact, String type, String url, String start, String end) {
         this.appointmentId = appointmentId;
-        this.cusotmerId = customerId;
+        this.customerId = customerId;
         this.userId = userId;
         this.title = title;
         this.description = description;
@@ -20,8 +20,9 @@ public class Appointment {
         this.end = end;
     }
 
-    public Appointment(int appointmentId, String title, String type, String start, String end) {
+    public Appointment(int appointmentId, int customerId, String title, String type, String start, String end) {
         this.appointmentId = appointmentId;
+        this.customerId = customerId;
         this.title = title;
         this.type = type;
         this.start = start;
@@ -36,12 +37,12 @@ public class Appointment {
         this.appointmentId = appointmentId;
     }
 
-    public int getCusotmerId() {
-        return cusotmerId;
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public void setCusotmerId(int cusotmerId) {
-        this.cusotmerId = cusotmerId;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
     public int getUserId() {

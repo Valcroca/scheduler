@@ -17,8 +17,8 @@
          </font>
       </Label>
       <Separator layoutY="53.0" prefHeight="0.0" prefWidth="685.0" />
-      <PasswordField fx:id="passwordField" layoutX="231.0" layoutY="264.0" prefHeight="45.0" prefWidth="224.0" />
-      <TextField fx:id="userNameField" layoutX="231.0" layoutY="161.0" prefHeight="45.0" prefWidth="224.0" />
+      <PasswordField fx:id="passwordField" layoutX="231.0" layoutY="264.0" prefHeight="45.0" prefWidth="224.0" text="test" />
+      <TextField fx:id="userNameField" layoutX="231.0" layoutY="161.0" prefHeight="45.0" prefWidth="224.0" text="test" />
       <Label fx:id="loginLabel" layoutX="326.0" layoutY="85.0" text="Login">
          <font>
             <Font name="System Bold" size="18.0" />

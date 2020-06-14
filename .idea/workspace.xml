@@ -2,11 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/Model/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View_Controller/AddAppointmentScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/View_Controller/AddAppointmentScreen.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/View_Controller/UpdateAppointmentScreen.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/View_Controller/UpdateAppointmentScreenController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ValRoca_SchedulingApp/Model/Appointment.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ValRoca_SchedulingApp/Model/Appointment.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ValRoca_SchedulingApp/View_Controller/LoginScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ValRoca_SchedulingApp/View_Controller/LoginScreen.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ValRoca_SchedulingApp/View_Controller/MainScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ValRoca_SchedulingApp/View_Controller/MainScreen.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/ValRoca_SchedulingApp/View_Controller/MainScreenController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model/Appointment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Appointment.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/View_Controller/AddAppointmentScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/View_Controller/AddAppointmentScreenController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/View_Controller/AddCustomerScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/View_Controller/AddCustomerScreenController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View_Controller/LoginScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/View_Controller/LoginScreen.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View_Controller/MainScreen.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/View_Controller/MainScreen.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/View_Controller/MainScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/View_Controller/MainScreenController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/View_Controller/UpdateCustomerScreenController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/View_Controller/UpdateCustomerScreenController.java" afterDir="false" />
     </list>
     <ignored path="JavaFxApplication.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -63,14 +71,43 @@
     <favorites_list name="JavaFxApplication" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.6921197">
+    <splitter split-orientation="horizontal" split-proportion="0.5552841">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="MainScreenController.java" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/View_Controller/MainScreenController.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="493">
+                  <caret line="164" column="36" lean-forward="true" selection-start-line="164" selection-start-column="36" selection-end-line="164" selection-end-column="36" />
+                  <folding>
+                    <element signature="e#13319#13320#0" expanded="true" />
+                    <element signature="e#13362#13363#0" expanded="true" />
+                    <element signature="e#13420#13421#0" expanded="true" />
+                    <element signature="e#13463#13464#0" expanded="true" />
+                    <element signature="e#13520#13521#0" expanded="true" />
+                    <element signature="e#13563#13564#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="AddCustomerScreenController.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/View_Controller/AddCustomerScreenController.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="296">
+                  <caret line="135" column="66" lean-forward="true" selection-start-line="135" selection-start-column="46" selection-end-line="135" selection-end-column="66" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
           <file leaf-file-name="LoginScreenController.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/View_Controller/LoginScreenController.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-132">
-                  <caret line="76" column="17" selection-start-line="76" selection-start-column="17" selection-end-line="76" selection-end-column="17" />
+                <state relative-caret-position="255">
+                  <caret line="89" selection-start-line="89" selection-end-line="89" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -78,80 +115,33 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/Main/Main.java">
+          <file leaf-file-name="MainScreen.fxml" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/View_Controller/MainScreen.fxml">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="186">
-                  <caret line="96" column="51" lean-forward="true" selection-start-line="96" selection-start-column="51" selection-end-line="96" selection-end-column="51" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                  </folding>
+                <state relative-caret-position="319">
+                  <caret line="31" column="38" lean-forward="true" selection-start-line="31" selection-start-column="38" selection-end-line="31" selection-end-column="38" />
                 </state>
               </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="MainScreenController.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/View_Controller/MainScreenController.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="281">
-                  <caret line="248" column="25" lean-forward="true" selection-start-line="248" selection-start-column="25" selection-end-line="248" selection-end-column="25" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="AddAppointmentScreenController.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/View_Controller/AddAppointmentScreenController.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="193">
-                  <caret line="232" column="69" selection-start-line="232" selection-start-column="69" selection-end-line="232" selection-end-column="69" />
-                  <folding>
-                    <element signature="imports" expanded="true" />
-                    <element signature="e#1308#1893#0" expanded="true" />
-                    <element signature="e#1892#1893#0" expanded="true" />
-                    <element signature="e#4103#4104#0" expanded="true" />
-                    <element signature="e#4131#4132#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="City.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/Model/City.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="548">
-                  <caret line="48" column="5" lean-forward="true" selection-start-line="45" selection-start-column="4" selection-end-line="48" selection-end-column="5" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="Customer.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/Model/Customer.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="565">
-                  <caret line="89" column="13" lean-forward="true" selection-start-line="89" selection-start-column="13" selection-end-line="89" selection-end-column="13" />
-                  <folding>
-                    <element signature="e#2325#2326#0" expanded="true" />
-                    <element signature="e#2360#2361#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="ComboBox.java" pinned="false" current-in-tab="false">
-            <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_251.jdk/Contents/Home/javafx-src.zip!/javafx/scene/control/ComboBox.java">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="263">
-                  <caret line="285" column="57" selection-start-line="285" selection-start-column="57" selection-end-line="285" selection-end-column="57" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="AddAppointmentScreen.fxml" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/View_Controller/AddAppointmentScreen.fxml">
               <provider editor-type-id="JavaFX-Scene-Builder" />
+            </entry>
+          </file>
+          <file leaf-file-name="UpdateAppointmentScreenController.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/View_Controller/UpdateAppointmentScreenController.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="455">
-                  <caret line="41" column="89" selection-start-line="41" selection-start-column="89" selection-end-line="41" selection-end-column="89" />
+                <state relative-caret-position="17">
+                  <caret line="271" column="67" selection-start-line="271" selection-start-column="67" selection-end-line="271" selection-end-column="67" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="ComboBoxBase.java" pinned="false" current-in-tab="false">
+            <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_251.jdk/Contents/Home/javafx-src.zip!/javafx/scene/control/ComboBoxBase.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="2006">
+                  <caret line="149" column="41" selection-start-line="149" selection-start-column="41" selection-end-line="149" selection-end-column="41" />
                 </state>
               </provider>
             </entry>
@@ -159,12 +149,24 @@
         </leaf>
       </split-first>
       <split-second>
-        <leaf>
-          <file leaf-file-name="AddCustomerScreenController.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/View_Controller/AddCustomerScreenController.java">
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="Appointment.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/Model/Appointment.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="296">
-                  <caret line="138" column="5" lean-forward="true" selection-start-line="134" selection-start-column="4" selection-end-line="138" selection-end-column="5" />
+                <state relative-caret-position="1156">
+                  <caret line="104" selection-start-line="104" selection-end-line="104" />
+                  <folding>
+                    <element signature="e#2453#2454#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="AddAppointmentScreenController.java" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/View_Controller/AddAppointmentScreenController.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="590">
+                  <caret line="264" column="13" selection-start-line="264" selection-start-column="13" selection-end-line="264" selection-end-column="13" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -172,11 +174,29 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Appointment.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/Model/Appointment.java">
+          <file leaf-file-name="UpdateCustomerScreenController.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/View_Controller/UpdateCustomerScreenController.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="157">
-                  <caret line="27" column="23" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
+                <state relative-caret-position="2057">
+                  <caret line="146" column="48" selection-start-line="146" selection-start-column="48" selection-end-line="146" selection-end-column="48" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="Customer.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/Model/Customer.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="663">
+                  <caret line="57" column="18" selection-start-line="57" selection-start-column="18" selection-end-line="57" selection-end-column="18" />
+                  <folding>
+                    <element signature="e#1600#1601#0" expanded="true" />
+                    <element signature="e#1635#1636#0" expanded="true" />
+                    <element signature="e#2325#2326#0" expanded="true" />
+                    <element signature="e#2362#2363#0" expanded="true" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -198,6 +218,7 @@
       <find>login</find>
       <find>date</find>
       <find>current</find>
+      <find>yyyy</find>
     </findStrings>
   </component>
   <component name="FindManager">
@@ -231,13 +252,15 @@
         <option value="$PROJECT_DIR$/src/Model/Address.java" />
         <option value="$PROJECT_DIR$/src/Model/City.java" />
         <option value="$PROJECT_DIR$/src/View_Controller/UpdateCustomerScreen.fxml" />
-        <option value="$PROJECT_DIR$/src/View_Controller/UpdateCustomerScreenController.java" />
-        <option value="$PROJECT_DIR$/src/Model/Appointment.java" />
-        <option value="$PROJECT_DIR$/src/View_Controller/MainScreenController.java" />
         <option value="$PROJECT_DIR$/src/View_Controller/AddCustomerScreenController.java" />
         <option value="$PROJECT_DIR$/src/View_Controller/AddAppointmentScreen.fxml" />
         <option value="$PROJECT_DIR$/src/Model/Customer.java" />
+        <option value="$PROJECT_DIR$/src/View_Controller/UpdateAppointmentScreen.fxml" />
+        <option value="$PROJECT_DIR$/src/Model/Appointment.java" />
+        <option value="$PROJECT_DIR$/src/View_Controller/UpdateCustomerScreenController.java" />
         <option value="$PROJECT_DIR$/src/View_Controller/AddAppointmentScreenController.java" />
+        <option value="$PROJECT_DIR$/src/View_Controller/UpdateAppointmentScreenController.java" />
+        <option value="$PROJECT_DIR$/src/View_Controller/MainScreenController.java" />
       </list>
     </option>
   </component>
@@ -303,8 +326,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView" />
       <pane id="Scope" />
+      <pane id="AndroidView" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -453,30 +476,30 @@
       <window_info anchor="right" id="Capture Analysis" order="4" />
       <window_info anchor="bottom" auto_hide="true" x="-1920" y="176" width="1920" height="263" id="Event Log" order="7" sideWeight="0.5005208" side_tool="true" type="FLOATING" weight="0.25583658" />
       <window_info anchor="right" id="Maven Projects" order="3" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49947917" visible="true" weight="0.2889105" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49947917" weight="0.2889105" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.14739583" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.6703755" visible="true" weight="0.110416666" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32879376" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
       <window_info anchor="right" id="Theme Preview" order="4" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.2081712" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.2081712" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="right" id="JetGradle" order="3" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Changes" order="7" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Profiler" order="7" />
       <window_info anchor="bottom" id="Problems" order="7" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Application Servers" order="7" />
+      <window_info anchor="right" id="Database" order="3" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -488,10 +511,18 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/View_Controller/MainScreenController.java</url>
+          <line>125</line>
+          <properties />
+          <option name="timeStamp" value="62" />
+        </line-breakpoint>
+      </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="45" />
+      <option name="time" value="65" />
     </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
@@ -499,31 +530,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/Main/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/View_Controller/LoginScreen.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="11" lean-forward="true" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/View_Controller/LoginScreenController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" lean-forward="true" selection-start-line="4" selection-end-line="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/DAOImplementation/DBQueries.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -535,14 +541,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="374">
           <caret line="22" lean-forward="true" selection-start-line="22" selection-end-line="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/View_Controller/MainScreen.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="83" lean-forward="true" selection-start-line="15" selection-start-column="83" selection-end-line="15" selection-end-column="86" />
         </state>
       </provider>
     </entry>
@@ -582,20 +580,20 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/View_Controller/LoginScreen.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="21" column="27" selection-start-line="21" selection-start-column="27" selection-end-line="21" selection-end-column="27" />
         </state>
       </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Languages/lang_es_ES.properties">
-      <provider editor-type-id="ResourceBundle" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="34" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
         </state>
       </provider>
+      <provider editor-type-id="ResourceBundle" />
     </entry>
     <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_251.jdk/Contents/Home/javafx-src.zip!/javafx/beans/property/ObjectPropertyBase.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -643,6 +641,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
           <caret line="1586" selection-start-line="1586" selection-end-line="1586" />
+          <folding>
+            <element signature="e#70179#70180#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -682,27 +683,20 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Languages/lang_en_US.properties">
-      <provider editor-type-id="ResourceBundle" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="31" selection-start-line="9" selection-start-column="31" selection-end-line="9" selection-end-column="31" />
         </state>
       </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_251.jdk/Contents/Home/javafx-src.zip!/javafx/scene/control/ComboBoxBase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="150" column="19" selection-start-line="150" selection-start-column="19" selection-end-line="150" selection-end-column="19" />
-        </state>
-      </provider>
+      <provider editor-type-id="ResourceBundle" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/View_Controller/AddCustomerScreen.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
           <caret line="6" column="41" selection-start-line="6" selection-start-column="41" selection-end-line="6" selection-end-column="41" />
         </state>
       </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/DAOImplementation/DBConnection.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -764,12 +758,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/View_Controller/UpdateCustomerScreen.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="41" lean-forward="true" selection-start-line="5" selection-start-column="41" selection-end-line="5" selection-end-column="41" />
         </state>
       </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Model/Address.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -796,13 +790,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/View_Controller/UpdateCustomerScreenController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="27">
-          <caret line="2" column="38" selection-start-line="2" selection-start-column="38" selection-end-line="2" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Main/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="186">
@@ -810,20 +797,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Model/Appointment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="27" column="23" selection-start-line="27" selection-start-column="23" selection-end-line="27" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/View_Controller/MainScreenController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="248" column="25" lean-forward="true" selection-start-line="248" selection-start-column="25" selection-end-line="248" selection-end-column="25" />
         </state>
       </provider>
     </entry>
@@ -845,33 +818,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/View_Controller/AddAppointmentScreen.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="455">
           <caret line="41" column="89" selection-start-line="41" selection-start-column="89" selection-end-line="41" selection-end-column="89" />
         </state>
       </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_251.jdk/Contents/Home/javafx-src.zip!/javafx/fxml/FXMLLoader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="1777" selection-start-line="1777" selection-end-line="1777" />
-          <folding>
-            <element signature="e#66921#66922#0" expanded="true" />
-            <element signature="e#66966#66967#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/View_Controller/LoginScreenController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-132">
-          <caret line="76" column="17" selection-start-line="76" selection-start-column="17" selection-end-line="76" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Model/City.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -880,21 +832,48 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/View_Controller/UpdateAppointmentScreen.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="35" lean-forward="true" selection-start-line="10" selection-start-column="35" selection-end-line="10" selection-end-column="35" />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Model/Customer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="565">
-          <caret line="89" column="13" lean-forward="true" selection-start-line="89" selection-start-column="13" selection-end-line="89" selection-end-column="13" />
+        <state relative-caret-position="663">
+          <caret line="57" column="18" selection-start-line="57" selection-start-column="18" selection-end-line="57" selection-end-column="18" />
           <folding>
+            <element signature="e#1600#1601#0" expanded="true" />
+            <element signature="e#1635#1636#0" expanded="true" />
             <element signature="e#2325#2326#0" expanded="true" />
-            <element signature="e#2360#2361#0" expanded="true" />
+            <element signature="e#2362#2363#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/View_Controller/AddCustomerScreenController.java">
+    <entry file="file://$PROJECT_DIR$/src/Model/Appointment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="138" column="5" lean-forward="true" selection-start-line="134" selection-start-column="4" selection-end-line="138" selection-end-column="5" />
+        <state relative-caret-position="1156">
+          <caret line="104" selection-start-line="104" selection-end-line="104" />
+          <folding>
+            <element signature="e#2453#2454#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_251.jdk/Contents/Home/javafx-src.zip!/javafx/scene/control/ComboBoxBase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2006">
+          <caret line="149" column="41" selection-start-line="149" selection-start-column="41" selection-end-line="149" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/View_Controller/UpdateCustomerScreenController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2057">
+          <caret line="146" column="48" selection-start-line="146" selection-start-column="48" selection-end-line="146" selection-end-column="48" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -903,14 +882,81 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/View_Controller/AddAppointmentScreenController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="232" column="69" selection-start-line="232" selection-start-column="69" selection-end-line="232" selection-end-column="69" />
+        <state relative-caret-position="590">
+          <caret line="264" column="13" selection-start-line="264" selection-start-column="13" selection-end-line="264" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1308#1893#0" expanded="true" />
-            <element signature="e#1892#1893#0" expanded="true" />
-            <element signature="e#4103#4104#0" expanded="true" />
-            <element signature="e#4131#4132#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/View_Controller/UpdateAppointmentScreenController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="271" column="67" selection-start-line="271" selection-start-column="67" selection-end-line="271" selection-end-column="67" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_251.jdk/Contents/Home/javafx-src.zip!/javafx/scene/control/ToggleButton.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="549">
+          <caret line="185" column="22" selection-start-line="185" selection-start-column="22" selection-end-line="185" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/View_Controller/LoginScreenController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="89" selection-start-line="89" selection-end-line="89" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/View_Controller/MainScreen.fxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="319">
+          <caret line="31" column="38" lean-forward="true" selection-start-line="31" selection-start-column="38" selection-end-line="31" selection-end-column="38" />
+        </state>
+      </provider>
+      <provider editor-type-id="JavaFX-Scene-Builder" />
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_251.jdk/Contents/Home/javafx-src.zip!/javafx/fxml/FXMLLoader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2043">
+          <caret line="2443" selection-start-line="2443" selection-end-line="2443" />
+          <folding>
+            <element signature="e#66921#66922#0" expanded="true" />
+            <element signature="e#66966#66967#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/View_Controller/AddCustomerScreenController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="135" column="66" lean-forward="true" selection-start-line="135" selection-start-column="46" selection-end-line="135" selection-end-column="66" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/View_Controller/MainScreenController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="164" column="36" lean-forward="true" selection-start-line="164" selection-start-column="36" selection-end-line="164" selection-end-column="36" />
+          <folding>
+            <element signature="e#13319#13320#0" expanded="true" />
+            <element signature="e#13362#13363#0" expanded="true" />
+            <element signature="e#13420#13421#0" expanded="true" />
+            <element signature="e#13463#13464#0" expanded="true" />
+            <element signature="e#13520#13521#0" expanded="true" />
+            <element signature="e#13563#13564#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -144,8 +144,8 @@ public class UpdateCustomerScreenController implements Initializable {
                 psCustomer.setString(6, "app user");
                 psCustomer.setInt(7, customer.getCustomerId());
 
-                int newCustomerRow = psCustomer.executeUpdate();
-                if (newCustomerRow == 0) {
+                int updatedCustomerRow = psCustomer.executeUpdate();
+                if (updatedCustomerRow == 0) {
                     throw new SQLException("Customer update failed.");
                 } else {
                     //success message alert

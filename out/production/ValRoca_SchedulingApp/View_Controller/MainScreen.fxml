@@ -33,14 +33,15 @@
       <TableView fx:id="appointmentsTable" layoutX="10.0" layoutY="104.0" prefHeight="159.0" prefWidth="675.0">
         <columns>
           <TableColumn fx:id="appointmentIdColumn" prefWidth="43.0" text="Id" />
-          <TableColumn fx:id="appointmentTitleColumn" prefWidth="138.0" text="Title" />
-            <TableColumn fx:id="appointmentTypeColumn" prefWidth="135.0" text="Type" />
-            <TableColumn fx:id="appointmentStartColumn" prefWidth="182.0" text="Start Time" />
-            <TableColumn fx:id="appointmentEndColumn" prefWidth="176.0" text="End Time" />
+          <TableColumn fx:id="appointmentTitleColumn" prefWidth="132.0" text="Title" />
+            <TableColumn fx:id="appointmentTypeColumn" prefWidth="110.0" text="Type" />
+            <TableColumn fx:id="appointmentStartColumn" prefWidth="157.0" text="Start Time" />
+            <TableColumn fx:id="appointmentEndColumn" prefWidth="141.0" text="End Time" />
+            <TableColumn fx:id="appointmentCustomer" prefWidth="91.0" text="Customer Id" />
         </columns>
       </TableView>
       <Button layoutX="620.0" layoutY="12.0" mnemonicParsing="false" text="Logout" />
-      <Button fx:id="newAppointmenttBtn" layoutX="10.0" layoutY="272.0" mnemonicParsing="false" onAction="#newAppointmentHandler" text="New Appointment" />
+      <Button fx:id="newAppointmentBtn" layoutX="10.0" layoutY="272.0" mnemonicParsing="false" onAction="#newAppointmentHandler" text="New Appointment" />
       <Button fx:id="updateAppointmentBtn" layoutX="157.0" layoutY="272.0" mnemonicParsing="false" onAction="#updateAppointmentHandler" text="Update" />
       <Button fx:id="deleteAppointmentBtn" layoutX="236.0" layoutY="272.0" mnemonicParsing="false" onAction="#deleteAppointmentHandler" text="Delete" />
       <Separator layoutY="312.0" prefHeight="6.0" prefWidth="695.0" />
