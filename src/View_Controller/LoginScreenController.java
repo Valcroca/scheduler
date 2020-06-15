@@ -74,7 +74,7 @@ public class LoginScreenController implements Initializable {
             alert.setContentText(errorText1);
             alert.showAndWait();
         } else {
-            User currentUser = exisitingUser(userNameInput, passwordInput);
+            User currentUser = existingUser(userNameInput, passwordInput);
             if (currentUser == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle(errorHeader);
@@ -95,7 +95,7 @@ public class LoginScreenController implements Initializable {
         }
     }
 
-    User exisitingUser(String userNameInput, String passwordInput) {
+    User existingUser(String userNameInput, String passwordInput) {
         try{
             PreparedStatement ps = DBConnection.startConnection().prepareStatement("SELECT * FROM user WHERE userName=? AND password=?");
             ps.setString(1, userNameInput);

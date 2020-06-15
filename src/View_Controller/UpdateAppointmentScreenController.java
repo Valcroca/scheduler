@@ -23,12 +23,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 
 public class UpdateAppointmentScreenController implements Initializable {
 
@@ -137,6 +137,7 @@ public class UpdateAppointmentScreenController implements Initializable {
 
     private String getTimestamp() {
         DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
         Date date = new Date();
         return sdf.format(date);
     }

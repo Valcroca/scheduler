@@ -20,10 +20,11 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 
 public class MainScreenController implements Initializable {
 
@@ -105,7 +106,6 @@ public class MainScreenController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-//        radioBtnViewAll.setSelected(true);
         populateAppointmentsTable();
         populateCustomersTable();
     }
@@ -119,6 +119,50 @@ public class MainScreenController implements Initializable {
         appointmentStartColumn.setCellValueFactory(new PropertyValueFactory<>("start"));
         appointmentEndColumn.setCellValueFactory(new PropertyValueFactory<>("end"));
         appointmentCustomer.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+    }
+
+    //parsing start dateTime from UTC to local
+    private String getStartDateTimeInLocalZone(String start) {
+        //get local zone id
+        ZoneId currentZoneId = ZoneId.of(TimeZone.getDefault().getID());
+        System.out.println("local zone ID: " + currentZoneId);
+        //get local offset
+        ZoneOffset offset = ZoneId.of(currentZoneId.toString()).getRules().getOffset(Instant.now());
+        System.out.println("offset: " +offset);
+        //create a ZonedDateTime object with the UTC date from BD and convert it to local time
+        ZonedDateTime dbDateTime = ZonedDateTime.parse(start.replace(" ", "T") + ZoneOffset.UTC + "[" + ZoneId.of("UTC") + "]");
+        Instant utcToLocalInstant = dbDateTime.toInstant();
+        ZonedDateTime utcToLocal = utcToLocalInstant.atZone(currentZoneId);
+        System.out.println("db date time: " + dbDateTime);
+        System.out.println("utc to local date time: " + utcToLocal);
+        //creating date time string that SQL will accept
+        String date = String.valueOf(utcToLocal.toLocalDate());
+        String time = String.valueOf(utcToLocal.toLocalTime());
+        String localDateTimeString = date + " " + time;
+        System.out.println("local date time string: " + localDateTimeString);
+        return localDateTimeString;
+    }
+
+    //parsing end dateTime from UTC to local
+    private String getEndDateTimeInLocalZone(String end) {
+        //get local zone id
+        ZoneId currentZoneId = ZoneId.of(TimeZone.getDefault().getID());
+        System.out.println("local zone ID: " + currentZoneId);
+        //get local offset
+        ZoneOffset offset = ZoneId.of(currentZoneId.toString()).getRules().getOffset(Instant.now());
+        System.out.println("offset: " +offset);
+        //create a ZonedDateTime object with the UTC date from BD and convert it to local time
+        ZonedDateTime dbDateTime = ZonedDateTime.parse(end.replace(" ", "T") + ZoneOffset.UTC + "[" + ZoneId.of("UTC") + "]");
+        Instant utcToLocalInstant = dbDateTime.toInstant();
+        ZonedDateTime utcToLocal = utcToLocalInstant.atZone(currentZoneId);
+        System.out.println("db date time: " + dbDateTime);
+        System.out.println("utc to local date time: " + utcToLocal);
+        //creating date time string that SQL will accept
+        String date = String.valueOf(utcToLocal.toLocalDate());
+        String time = String.valueOf(utcToLocal.toLocalTime());
+        String localDateTimeString = date + " " + time;
+        System.out.println("local date time string: " + localDateTimeString);
+        return localDateTimeString;
     }
 
     //GET appointments from the DB depending on all/weekly/monthly selection
@@ -136,8 +180,10 @@ public class MainScreenController implements Initializable {
                     String title = rs.getString("appointment.title");
                     String type = rs.getString("appointment.type");
                     String start = rs.getString("appointment.start");
+                    String localStart = getStartDateTimeInLocalZone(start);
                     String end = rs.getString("appointment.end");
-                    allAppointments.add(new Appointment(id, customerId, title, type, start, end));
+                    String localEnd = getEndDateTimeInLocalZone(end);
+                    allAppointments.add(new Appointment(id, customerId, title, type, localStart, localEnd));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -158,8 +204,10 @@ public class MainScreenController implements Initializable {
                     String title = rs.getString("appointment.title");
                     String type = rs.getString("appointment.type");
                     String start = rs.getString("appointment.start");
+                    String localStart = getStartDateTimeInLocalZone(start);
                     String end = rs.getString("appointment.end");
-                    allAppointments.add(new Appointment(id, customerId, title, type, start, end));
+                    String localEnd = getEndDateTimeInLocalZone(end);
+                    allAppointments.add(new Appointment(id, customerId, title, type, localStart, localEnd));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -180,8 +228,10 @@ public class MainScreenController implements Initializable {
                     String title = rs.getString("appointment.title");
                     String type = rs.getString("appointment.type");
                     String start = rs.getString("appointment.start");
+                    String localStart = getStartDateTimeInLocalZone(start);
                     String end = rs.getString("appointment.end");
-                    allAppointments.add(new Appointment(id, customerId, title, type, start, end));
+                    String localEnd = getEndDateTimeInLocalZone(end);
+                    allAppointments.add(new Appointment(id, customerId, title, type, localStart, localEnd));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

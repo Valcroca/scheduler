@@ -21,6 +21,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 
 public class AddCustomerScreenController implements Initializable {
 
@@ -134,6 +135,7 @@ public class AddCustomerScreenController implements Initializable {
 
     private String getTimestamp() {
         DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
         Date date = new Date();
         return sdf.format(date);
     }

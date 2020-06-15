@@ -1,7 +1,6 @@
 package View_Controller;
 
 import DAOImplementation.DBConnection;
-import Model.City;
 import Model.Customer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,7 +11,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -22,14 +20,9 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.Date;
+import java.time.*;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 
 public class AddAppointmentScreenController implements Initializable {
 
@@ -172,12 +165,49 @@ public class AddAppointmentScreenController implements Initializable {
         stage.show();
     }
 
-    private String getTimestamp() {
-        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = new Date();
-        return sdf.format(date);
+    //getting a utc timestamp from the local time zone
+    private String getTimestampUTC() {
+        ZonedDateTime timestamp = ZonedDateTime.now(ZoneOffset.UTC);
+        //creating date time string that SQL will accept
+        String date = String.valueOf(timestamp.toLocalDate());
+        String time = String.valueOf(timestamp.toLocalTime());
+        String utcDateTimeString = date + " " + time;
+        return utcDateTimeString;
     }
 
+    //parsing start dateTime from local zone to utc
+    private String getStartDateTimeInUTC() {
+        //get local zone id
+        ZoneId currentZoneId = ZoneId.of(TimeZone.getDefault().getID());
+        //get local offset
+        ZoneOffset offset = ZoneId.of(currentZoneId.toString()).getRules().getOffset(Instant.now());
+        //concatenate string from date picker and time combo box to get a dateTime string
+        String localDateTimeString = startDatePicker.getValue().toString() + "T" + startTimeComboBox.getValue().toString() + ":00" + offset + "[" + currentZoneId + "]";
+        //create a ZonedDateTIme object with that string and convert it to UTC
+        ZonedDateTime utcDateTime = ZonedDateTime.parse(localDateTimeString).withZoneSameInstant(ZoneOffset.UTC);
+        //creating date time string that SQL will accept
+        String date = String.valueOf(utcDateTime.toLocalDate());
+        String time = String.valueOf(utcDateTime.toLocalTime());
+        String utcDateTimeString = date + " " + time;
+        return utcDateTimeString;
+    }
+
+    //parsing end dateTime from local zone to utc
+    private String getEndDateTimeInUTC() {
+        //get local zone id
+        ZoneId currentZoneId = ZoneId.of(TimeZone.getDefault().getID());
+        //get local offset
+        ZoneOffset offset = ZoneId.of(currentZoneId.toString()).getRules().getOffset(Instant.now());
+        //concatenate string from date picker and time combo box to get a dateTime string
+        String localDateTimeString = endDatePicker.getValue().toString() + "T" + endTimeComboBox.getValue().toString() + ":00" + offset + "[" + currentZoneId + "]";
+        //create a ZonedDateTIme object with that string and convert it to UTC
+        ZonedDateTime utcDateTime = ZonedDateTime.parse(localDateTimeString).withZoneSameInstant(ZoneOffset.UTC);
+        //creating date time string that SQL will accept
+        String date = String.valueOf(utcDateTime.toLocalDate());
+        String time = String.valueOf(utcDateTime.toLocalTime());
+        String utcDateTimeString = date + " " + time;
+        return utcDateTimeString;
+    }
     @FXML
     void saveNewAppointmentHandler(ActionEvent event) throws IOException {
         if (validatesAppointment()) {
@@ -195,11 +225,11 @@ public class AddAppointmentScreenController implements Initializable {
                 ps.setString(6, "default");
                 ps.setString(7, typeField.getText());
                 ps.setString(8, "default");
-                ps.setString(9, startDatePicker.getValue().toString() + " " + startTimeComboBox.getValue().toString());
-                ps.setString(10, endDatePicker.getValue().toString() + " " + endTimeComboBox.getValue().toString());
-                ps.setString(11, getTimestamp());
+                ps.setString(9, getStartDateTimeInUTC());
+                ps.setString(10, getEndDateTimeInUTC());
+                ps.setString(11, getTimestampUTC());
                 ps.setString(12, "app user");
-                ps.setString(13, getTimestamp());
+                ps.setString(13, getTimestampUTC());
                 ps.setString(14, "app user");
                 int newAppointmentRow = ps.executeUpdate();
                 if (newAppointmentRow == 0) {
