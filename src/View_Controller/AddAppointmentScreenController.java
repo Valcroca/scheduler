@@ -113,7 +113,7 @@ public class AddAppointmentScreenController implements Initializable {
     }
 
     private static ObservableList<Customer> getAllCustomers() {
-
+        allCustomers.clear();
         try {
             PreparedStatement statement = DBConnection.startConnection().prepareStatement(
                     "SELECT customer.customerId, customer.customerName FROM customer;"
@@ -148,10 +148,8 @@ public class AddAppointmentScreenController implements Initializable {
 
     @FXML
     void startDateSelectedHandler(ActionEvent event) {
-
         endDatePicker.setValue(startDatePicker.getValue());
     }
-
 
     @FXML
     void cancelHandler(ActionEvent event) throws IOException {
@@ -184,7 +182,9 @@ public class AddAppointmentScreenController implements Initializable {
         //concatenate string from date picker and time combo box to get a dateTime string
         String localDateTimeString = startDatePicker.getValue().toString() + "T" + startTimeComboBox.getValue().toString() + ":00" + offset + "[" + currentZoneId + "]";
         //create a ZonedDateTIme object with that string and convert it to UTC
-        ZonedDateTime utcDateTime = ZonedDateTime.parse(localDateTimeString).withZoneSameInstant(ZoneOffset.UTC);
+        ZonedDateTime localDateTime = ZonedDateTime.parse(localDateTimeString);
+        Instant localToUtcInstant = localDateTime.toInstant();
+        ZonedDateTime utcDateTime = localToUtcInstant.atZone(ZoneOffset.UTC);
         //creating date time string that SQL will accept
         String date = String.valueOf(utcDateTime.toLocalDate());
         String time = String.valueOf(utcDateTime.toLocalTime());
@@ -201,13 +201,16 @@ public class AddAppointmentScreenController implements Initializable {
         //concatenate string from date picker and time combo box to get a dateTime string
         String localDateTimeString = endDatePicker.getValue().toString() + "T" + endTimeComboBox.getValue().toString() + ":00" + offset + "[" + currentZoneId + "]";
         //create a ZonedDateTIme object with that string and convert it to UTC
-        ZonedDateTime utcDateTime = ZonedDateTime.parse(localDateTimeString).withZoneSameInstant(ZoneOffset.UTC);
+        ZonedDateTime localDateTime = ZonedDateTime.parse(localDateTimeString);
+        Instant localToUtcInstant = localDateTime.toInstant();
+        ZonedDateTime utcDateTime = localToUtcInstant.atZone(ZoneOffset.UTC);
         //creating date time string that SQL will accept
         String date = String.valueOf(utcDateTime.toLocalDate());
         String time = String.valueOf(utcDateTime.toLocalTime());
         String utcDateTimeString = date + " " + time;
         return utcDateTimeString;
     }
+
     @FXML
     void saveNewAppointmentHandler(ActionEvent event) throws IOException {
         if (validatesAppointment()) {
@@ -251,6 +254,30 @@ public class AddAppointmentScreenController implements Initializable {
         }
     }
 
+    private boolean isOverlappingAppt() {
+        boolean isOverlapping = true;
+        String start = getStartDateTimeInUTC();
+
+        //check the db for any appointments that have the same start and user
+        try {
+            //TODO FIX THIS STATEMENT TO GRAB ANY APPTS THAT HAVE A START OR END BETWEEN THE NEW APPTS' START AND END
+            PreparedStatement statement = DBConnection.startConnection().prepareStatement(
+                    "SELECT * FROM appointment WHERE appointment.start = '" + start + "' AND appointment.userId = 1;"
+            );
+            ResultSet rs = statement.executeQuery();
+            //if we have results, then we have an overlapping appt
+            if (rs.next()) {
+                isOverlapping = true;
+            } else
+                isOverlapping = false;
+                rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return isOverlapping;
+    }
+
     private boolean validatesAppointment() {
         String title = titleField.getText();
         String type = typeField.getText();
@@ -292,6 +319,12 @@ public class AddAppointmentScreenController implements Initializable {
             if (startDate.equals(LocalDate.now())) {
                 if (startTime.isBefore(LocalTime.now()))
                     errorMessage += "Start Time cannot be in the past.";
+            }
+            //validation for overlapping appointments for the user
+            if (startDate != null && endDate != null) {
+                if (isOverlappingAppt()) {
+                    errorMessage += "There is already an appointment at the selected time. Please choose a different time.";
+                }
             }
         }
 

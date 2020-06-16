@@ -125,21 +125,16 @@ public class MainScreenController implements Initializable {
     private String getStartDateTimeInLocalZone(String start) {
         //get local zone id
         ZoneId currentZoneId = ZoneId.of(TimeZone.getDefault().getID());
-        System.out.println("local zone ID: " + currentZoneId);
         //get local offset
         ZoneOffset offset = ZoneId.of(currentZoneId.toString()).getRules().getOffset(Instant.now());
-        System.out.println("offset: " +offset);
         //create a ZonedDateTime object with the UTC date from BD and convert it to local time
         ZonedDateTime dbDateTime = ZonedDateTime.parse(start.replace(" ", "T") + ZoneOffset.UTC + "[" + ZoneId.of("UTC") + "]");
         Instant utcToLocalInstant = dbDateTime.toInstant();
         ZonedDateTime utcToLocal = utcToLocalInstant.atZone(currentZoneId);
-        System.out.println("db date time: " + dbDateTime);
-        System.out.println("utc to local date time: " + utcToLocal);
         //creating date time string that SQL will accept
         String date = String.valueOf(utcToLocal.toLocalDate());
         String time = String.valueOf(utcToLocal.toLocalTime());
         String localDateTimeString = date + " " + time;
-        System.out.println("local date time string: " + localDateTimeString);
         return localDateTimeString;
     }
 
@@ -147,21 +142,16 @@ public class MainScreenController implements Initializable {
     private String getEndDateTimeInLocalZone(String end) {
         //get local zone id
         ZoneId currentZoneId = ZoneId.of(TimeZone.getDefault().getID());
-        System.out.println("local zone ID: " + currentZoneId);
         //get local offset
         ZoneOffset offset = ZoneId.of(currentZoneId.toString()).getRules().getOffset(Instant.now());
-        System.out.println("offset: " +offset);
         //create a ZonedDateTime object with the UTC date from BD and convert it to local time
         ZonedDateTime dbDateTime = ZonedDateTime.parse(end.replace(" ", "T") + ZoneOffset.UTC + "[" + ZoneId.of("UTC") + "]");
         Instant utcToLocalInstant = dbDateTime.toInstant();
         ZonedDateTime utcToLocal = utcToLocalInstant.atZone(currentZoneId);
-        System.out.println("db date time: " + dbDateTime);
-        System.out.println("utc to local date time: " + utcToLocal);
         //creating date time string that SQL will accept
         String date = String.valueOf(utcToLocal.toLocalDate());
         String time = String.valueOf(utcToLocal.toLocalTime());
         String localDateTimeString = date + " " + time;
-        System.out.println("local date time string: " + localDateTimeString);
         return localDateTimeString;
     }
 
