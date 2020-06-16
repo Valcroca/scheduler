@@ -67,6 +67,7 @@ public class UpdateAppointmentScreenController implements Initializable {
     LocalDate endDate;
     LocalTime endTime;
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //format date pickers
@@ -302,25 +303,22 @@ public class UpdateAppointmentScreenController implements Initializable {
     }
 
     private boolean isOverlappingAppt() {
-        boolean isOverlapping = false;
-        String start = getStartDateTimeInUTC();
+        boolean isOverlapping = true;
+        String start = getStartDateTimeInUTC() + ":00";
+        String end = getEndDateTimeInUTC() + ":00";
 
-        //check the db for any appointments that have the same start and user
+        //check the db for any appointments that have the same user, exclude the current appointment it's being edited, and have start or end datetimes between the selected start and datetimes from the update page.
         try {
             PreparedStatement statement = DBConnection.startConnection().prepareStatement(
-                    "SELECT * FROM appointment WHERE appointment.start = '" + start + "' AND appointment.userId = 1;"
+                    "SELECT * FROM appointment WHERE userId = 1 AND NOT appointmentId = " + appointment.getAppointmentId() + " AND start BETWEEN '" + start + "' AND '" + end + "'OR end BETWEEN '" + start + "' AND '" + end + "';"
             );
             ResultSet rs = statement.executeQuery();
-            //if we have results (other than the appt currently editing), then we have an overlapping appt
+            //if we have results, then we have an overlapping appt
             if (rs.next()) {
-                int id = rs.getInt("appointment.appointmentId");
-                if (id == appointment.getAppointmentId()) {
-                    isOverlapping = false;
-                } else {
-                    isOverlapping = true;
-                }
+                isOverlapping = true;
             } else
-               rs.close();
+                isOverlapping = false;
+            rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

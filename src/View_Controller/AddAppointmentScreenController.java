@@ -256,13 +256,13 @@ public class AddAppointmentScreenController implements Initializable {
 
     private boolean isOverlappingAppt() {
         boolean isOverlapping = true;
-        String start = getStartDateTimeInUTC();
+        String start = getStartDateTimeInUTC() + ":00";
+        String end = getEndDateTimeInUTC() + ":00";
 
-        //check the db for any appointments that have the same start and user
+        //check the db for any appointments that have the same user and have start or end datetimes between the selected start and date datetimes from the page.
         try {
-            //TODO FIX THIS STATEMENT TO GRAB ANY APPTS THAT HAVE A START OR END BETWEEN THE NEW APPTS' START AND END
             PreparedStatement statement = DBConnection.startConnection().prepareStatement(
-                    "SELECT * FROM appointment WHERE appointment.start = '" + start + "' AND appointment.userId = 1;"
+                    "SELECT * FROM appointment WHERE userId = 1 AND start BETWEEN '" + start + "' AND '" + end + "'OR end BETWEEN '" + start + "' AND '" + end + "';"
             );
             ResultSet rs = statement.executeQuery();
             //if we have results, then we have an overlapping appt
@@ -270,7 +270,7 @@ public class AddAppointmentScreenController implements Initializable {
                 isOverlapping = true;
             } else
                 isOverlapping = false;
-                rs.close();
+            rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
