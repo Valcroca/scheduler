@@ -66,7 +66,8 @@ public class UpdateAppointmentScreenController implements Initializable {
     LocalTime startTime;
     LocalDate endDate;
     LocalTime endTime;
-
+    //get the logged-in user's id
+    int currentUserId = LoginScreenController.getCurrentUser().getUserId();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -193,7 +194,7 @@ public class UpdateAppointmentScreenController implements Initializable {
                         "UPDATE appointment SET customerId=?, userId=?, title=?, description=?, location=?, contact=?, type=?, url=?, start=?, end=?, createDate=?, createdBy=?, lastUpdate=?, lastUpdateBy=? WHERE appointmentId=?");
 
                 ps.setInt(1, customerComboBox.getValue().getCustomerId());
-                ps.setInt(2, 1);
+                ps.setInt(2, currentUserId);
                 ps.setString(3, titleField.getText());
                 ps.setString(4, "default");
                 ps.setString(5, "default");
@@ -310,7 +311,7 @@ public class UpdateAppointmentScreenController implements Initializable {
         //check the db for any appointments that have the same user, exclude the current appointment it's being edited, and have start or end datetimes between the selected start and datetimes from the update page.
         try {
             PreparedStatement statement = DBConnection.startConnection().prepareStatement(
-                    "SELECT * FROM appointment WHERE userId = 1 AND NOT appointmentId = " + appointment.getAppointmentId() + " AND start BETWEEN '" + start + "' AND '" + end + "'OR end BETWEEN '" + start + "' AND '" + end + "';"
+                    "SELECT * FROM appointment WHERE userId = "+ currentUserId +" AND (start BETWEEN '" + start + "' AND '" + end + "'OR end BETWEEN '" + start + "' AND '" + end + "') AND NOT appointmentId = " + appointment.getAppointmentId() + ";"
             );
             ResultSet rs = statement.executeQuery();
             //if we have results, then we have an overlapping appt

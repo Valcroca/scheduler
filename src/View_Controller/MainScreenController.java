@@ -20,8 +20,10 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.TimeZone;
@@ -101,13 +103,25 @@ public class MainScreenController implements Initializable {
     @FXML
     private Button updateCustomerBtn;
 
+    @FXML
+    private Button apptTypesBtn;
+
+    @FXML
+    private Button scheduleBtn;
+
+    @FXML
+    private Button customerCountBtn;
+
     private static ObservableList<Customer> allCustomers = FXCollections.observableArrayList();
     private static ObservableList<Appointment> allAppointments = FXCollections.observableArrayList();
+    //get the logged-in user's id
+    int currentUserId = LoginScreenController.getCurrentUser().getUserId();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         populateAppointmentsTable();
         populateCustomersTable();
+        appointmentWithin15Min();
     }
 
     //populate the appointments table with DB data
@@ -162,7 +176,7 @@ public class MainScreenController implements Initializable {
             System.out.println("Finding Appointments");
             allAppointments.clear();
 
-            try (PreparedStatement statement = DBConnection.startConnection().prepareStatement("SELECT appointment.appointmentId, appointment.customerId, appointment.title, appointment.type, appointment.start, appointment.end FROM appointment;");
+            try (PreparedStatement statement = DBConnection.startConnection().prepareStatement("SELECT appointment.appointmentId, appointment.customerId, appointment.title, appointment.type, appointment.start, appointment.end FROM appointment WHERE userId ="+ currentUserId +";");
                  ResultSet rs = statement.executeQuery()) {
                 while (rs.next()) {
                     int id = rs.getInt("appointment.appointmentId");
@@ -186,7 +200,7 @@ public class MainScreenController implements Initializable {
 
             String startMonth = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
             String endMonth = LocalDateTime.now().plusMonths(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-            try (PreparedStatement statement = DBConnection.startConnection().prepareStatement("SELECT appointment.appointmentId, appointment.customerId, appointment.title, appointment.type, appointment.start, appointment.end FROM appointment WHERE appointment.start >= '" + startMonth + "' AND appointment.end <= '" + endMonth + "';");
+            try (PreparedStatement statement = DBConnection.startConnection().prepareStatement("SELECT appointment.appointmentId, appointment.customerId, appointment.title, appointment.type, appointment.start, appointment.end FROM appointment WHERE appointment.start >= '" + startMonth + "' AND appointment.end <= '" + endMonth + "' AND userId ="+ currentUserId +";");
                  ResultSet rs = statement.executeQuery()) {
                 while (rs.next()) {
                     int id = rs.getInt("appointment.appointmentId");
@@ -210,7 +224,7 @@ public class MainScreenController implements Initializable {
 
             String startWeek = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
             String endWeek = LocalDateTime.now().plusWeeks(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-            try (PreparedStatement statement = DBConnection.startConnection().prepareStatement("SELECT appointment.appointmentId, appointment.customerId, appointment.title, appointment.type, appointment.start, appointment.end FROM appointment WHERE appointment.start >= '" + startWeek + "' AND appointment.end <= '" + endWeek + "';");
+            try (PreparedStatement statement = DBConnection.startConnection().prepareStatement("SELECT appointment.appointmentId, appointment.customerId, appointment.title, appointment.type, appointment.start, appointment.end FROM appointment WHERE appointment.start >= '" + startWeek + "' AND appointment.end <= '" + endWeek + "' AND userId ="+ currentUserId +";");
                  ResultSet rs = statement.executeQuery()) {
                 while (rs.next()) {
                     int id = rs.getInt("appointment.appointmentId");
@@ -267,6 +281,34 @@ public class MainScreenController implements Initializable {
             e.printStackTrace();
         }
         return allCustomers;
+    }
+
+    public void appointmentWithin15Min() {
+        //get the zoned time of the present moment in UTC, and then get a second date time for 15 mins after
+        LocalDateTime now = LocalDateTime.now();
+        ZoneId zoneId = ZoneId.systemDefault();
+        ZonedDateTime zonedDateTime = now.atZone(zoneId);
+        LocalDateTime localDateTime = zonedDateTime.withZoneSameInstant(ZoneId.of("UTC")).toLocalDateTime();
+        LocalDateTime localDateTimePlus15 = localDateTime.plusMinutes(15);
+        //search in DB for any appts of that user that start between now and 15mins after now
+        try {
+            PreparedStatement statement = DBConnection.startConnection().prepareStatement(
+                    "SELECT * FROM appointment WHERE userId = "+ currentUserId +" AND start BETWEEN '" + localDateTime + "' AND '" + localDateTimePlus15 + "';"
+            );
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()) {
+                //alert pop-up
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Reminder");
+                alert.setHeaderText("You have an appointment soon!");
+                alert.setContentText("You have an appointment within 15 minutes.");
+                alert.showAndWait();
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     //DELETE appointment record
@@ -405,6 +447,40 @@ public class MainScreenController implements Initializable {
     @FXML
     void viewWeekHandler(ActionEvent event) {
         populateAppointmentsTable();
+    }
+
+    @FXML
+    void apptTypesHandler(ActionEvent event) throws IOException {
+        Stage stage;
+        Parent root;
+        stage = (Stage) apptTypesBtn.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View_Controller/AppointmentTypesReportScreen.fxml"));
+        root = loader.load();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    void scheduleHandler(ActionEvent event) throws IOException {
+        Stage stage;
+        Parent root;
+        stage = (Stage) scheduleBtn.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View_Controller/UserScheduleReportScreen.fxml"));
+        root = loader.load();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    @FXML
+    void customerCountHandler(ActionEvent event) throws IOException {
+        Stage stage;
+        Parent root;
+        stage = (Stage) customerCountBtn.getScene().getWindow();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/View_Controller/CustomerCountReportScreen.fxml"));
+        root = loader.load();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
 

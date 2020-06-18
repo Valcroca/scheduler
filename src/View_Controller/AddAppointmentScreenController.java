@@ -53,6 +53,9 @@ public class AddAppointmentScreenController implements Initializable {
     @FXML
     private Button saveNewAppointmentBtn;
 
+    //get the logged-in user's id
+    int currentUserId = LoginScreenController.getCurrentUser().getUserId();
+
     Callback<DatePicker, DateCell> dayCellFactory = new Callback<DatePicker, DateCell>() {
         @Override
         public DateCell call(final DatePicker datePicker) {
@@ -221,7 +224,7 @@ public class AddAppointmentScreenController implements Initializable {
                 );
 
                 ps.setInt(1, customerComboBox.getValue().getCustomerId());
-                ps.setInt(2, 1);
+                ps.setInt(2, currentUserId);
                 ps.setString(3, titleField.getText());
                 ps.setString(4, "default");
                 ps.setString(5, "default");
@@ -262,7 +265,7 @@ public class AddAppointmentScreenController implements Initializable {
         //check the db for any appointments that have the same user and have start or end datetimes between the selected start and date datetimes from the page.
         try {
             PreparedStatement statement = DBConnection.startConnection().prepareStatement(
-                    "SELECT * FROM appointment WHERE userId = 1 AND start BETWEEN '" + start + "' AND '" + end + "'OR end BETWEEN '" + start + "' AND '" + end + "';"
+                    "SELECT * FROM appointment WHERE userId ="+ currentUserId +" AND (start BETWEEN '" + start + "' AND '" + end + "'OR end BETWEEN '" + start + "' AND '" + end + "');"
             );
             ResultSet rs = statement.executeQuery();
             //if we have results, then we have an overlapping appt

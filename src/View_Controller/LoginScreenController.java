@@ -22,8 +22,6 @@ import java.util.ResourceBundle;
 
 public class LoginScreenController implements Initializable {
 
-    User user = new User();
-    private String errorText, errorText1, errorHeader, exitMessage, exitHeader;
 
     @FXML
     private Label userNameLabel;
@@ -46,7 +44,10 @@ public class LoginScreenController implements Initializable {
     @FXML
     private TextField userNameField;
 
-    public LoginScreenController() {};
+    static User currentUser;
+    private String errorText, errorText1, errorHeader, exitMessage, exitHeader;
+
+    public LoginScreenController() {}
 
     @FXML
     void exitButtonHandler(ActionEvent event) {
@@ -74,7 +75,7 @@ public class LoginScreenController implements Initializable {
             alert.setContentText(errorText1);
             alert.showAndWait();
         } else {
-            User currentUser = existingUser(userNameInput, passwordInput);
+            currentUser = existingUser(userNameInput, passwordInput);
             if (currentUser == null) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle(errorHeader);
@@ -102,10 +103,11 @@ public class LoginScreenController implements Initializable {
             ps.setString(2, passwordInput);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
+                currentUser = new User();
                 System.out.println(ps.getUpdateCount() + " user found.");
-                user.setUserId(rs.getInt("userId"));
-                user.setUserName(rs.getString("userName"));
-                user.setPassword(rs.getString("password"));
+                currentUser.setUserId(rs.getInt("userId"));
+                currentUser.setUserName(rs.getString("userName"));
+                currentUser.setPassword(rs.getString("password"));
             } else {
                 System.out.println("Not found.");
 
@@ -114,7 +116,11 @@ public class LoginScreenController implements Initializable {
         } catch (SQLException e){
             e.printStackTrace();
         }
-        return user;
+        return currentUser;
+    }
+
+    public static User getCurrentUser() {
+        return currentUser;
     }
 
     @Override
