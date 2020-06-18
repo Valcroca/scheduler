@@ -1,6 +1,7 @@
 package View_Controller;
 
 import DAOImplementation.DBConnection;
+import Model.LoginLogger;
 import Model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -83,6 +84,8 @@ public class LoginScreenController implements Initializable {
                 alert.setContentText(errorText);
                 alert.showAndWait();
             } else {
+                //log successful login
+                LoginLogger.log(userNameInput);
                 //go to main screen after successful login
                 Stage stage;
                 Parent root;
